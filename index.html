@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XCITY - 去中心化职业数据平台</title>
+    <meta name="description" content="基于Solana区块链的去中心化职业数据平台，连接企业与人才，重塑招聘体验。">
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #1a1a2e;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #4cc9f0;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-left: 2rem;
+        }
+        
+        .navbar-start {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-end {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-item {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+        
+        .connect-wallet-button {
+            background-color: #4cc9f0;
+            color: #1a1a2e;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .connect-wallet-button:hover {
+            background-color: #3db8df;
+            transform: translateY(-2px);
+        }
+        
+        /* 主内容区域样式 */
+        .main-content {
+            padding: 2rem 0;
+        }
+        
+        /* 首页样式 */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            color: #4cc9f0;
+        }
+        
+        .hero-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+        
+        .connect-wallet-button.large {
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+        }
+        
+        .how-it-works-section {
+            background-color: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .how-it-works-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1a1a2e;
+            font-size: 2rem;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: #4cc9f0;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        
+        .step h3 {
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step p {
+            color: #666;
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .navbar-brand {
+                margin-bottom: 1rem;
+            }
+            
+            .navbar-menu {
+                flex-direction: column;
+                margin-left: 0;
+            }
+            
+            .navbar-start, .navbar-end {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 0.5rem;
+            }
+            
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>XCITY</h1>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <button class="nav-item active">首页</button>
+                <button class="nav-item">个人资料</button>
+                <button class="nav-item">职位</button>
+                <button class="nav-item">匹配结果</button>
+                <button class="nav-item">代币钱包</button>
+            </div>
+            <div class="navbar-end">
+                <button class="connect-wallet-button">连接钱包</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="hero-section">
+                <h1>XCITY</h1>
+                <h2>去中心化职业数据平台</h2>
+                <p>连接企业与人才，重塑招聘体验</p>
+                <button class="connect-wallet-button large">开始使用</button>
+            </div>
+            
+            <div class="features-section">
+                <div class="feature-card">
+                    <h3>区块链驱动</h3>
+                    <p>基于Solana区块链构建，确保数据安全和透明度。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI智能匹配</h3>
+                    <p>利用人工智能技术，精准匹配职位和候选人。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>代币激励</h3>
+                    <p>通过XCC代币创建公平的价值交换机制。</p>
+                </div>
+            </div>
+            
+            <div class="how-it-works-section">
+                <h2>如何使用</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>连接钱包</h3>
+                        <p>使用Phantom等Solana钱包连接到XCITY平台。</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>创建资料</h3>
+                        <p>完善您的个人或企业资料，展示您的技能和需求。</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>匹配职位</h3>
+                        <p>浏览职位或发布招聘需求，利用AI匹配找到最佳选择。</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>解锁联系</h3>
+                        <p>企业可以通过支付XCC代币解锁候选人联系方式。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 XCITY 去中心化职业数据平台 | 基于Solana区块链</p>
+    </footer>
+
+    <script>
+        // 简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 导航项点击效果
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // 钱包连接按钮点击效果
+            const connectButtons = document.querySelectorAll('.connect-wallet-button');
+            connectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('钱包连接功能在静态演示版本中不可用。在完整版本中，这将打开Solana钱包连接对话框。');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
